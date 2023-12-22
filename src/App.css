@@ -1,16 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html, body{
-  background-color: cadetblue;
   font-family: 'Righteous', 'cursive';
   color: white;
 }
 
 .App {
-  width: 300px;
-  height: 400px;
+  width: 500px;
+  height: 260px;
   display: flex;
   flex-flow: column wrap;
 }
-
 
 .BreakSession {
   width: 400px;
@@ -34,7 +36,6 @@ html, body{
 }
 
 .timerBackground {
-  background-color: rgb(66, 123, 125);
   border-radius: 5px;
 }
 

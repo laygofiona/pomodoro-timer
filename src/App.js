@@ -67,12 +67,12 @@ const BreakSessionSection = (props) => {
   return (
     <div className='BreakSession container m-3 p-2'>
       <div className='sectionColumn'>
-        <h4 id="break-label">Break Length</h4>
-        <span className='sectionRow text-center'><button disabled={disabled} type="button" className="btn-c" id="break-decrement" onClick={breakDecrement}><h4><i class="bi bi-caret-down-fill"></i></h4></button><h4 id="break-length">{props.breakMinVal}</h4><button type="button" disabled={disabled} className='btn-c' id="break-increment" onClick={breakIncrement}><h4><i class="bi bi-caret-up-fill"></i></h4></button></span>
+        <h4 id="break-label" className="text-xl">Break Length</h4>
+        <span className='sectionRow text-center text-2xl'><button disabled={disabled} type="button" className="btn-c" id="break-decrement" onClick={breakDecrement}><h4><i class="bi bi-caret-down-fill"></i></h4></button><h4 id="break-length">{props.breakMinVal}</h4><button type="button" disabled={disabled} className='btn-c' id="break-increment" onClick={breakIncrement}><h4><i class="bi bi-caret-up-fill"></i></h4></button></span>
       </div>
       <div className='sectionColumn'>
-        <h4 id="session-label">Session Length</h4>
-        <span className='sectionRow text-center'><button type="button" className='btn-c' id="session-decrement" disabled={disabled} onClick={sessionDecrement}><h4><i class="bi bi-caret-down-fill"></i></h4></button><h4 id="session-length">{props.sessionMinVal}</h4><button disabled={disabled} type="button" className='btn-c' id="session-increment" onClick={sessionIncrement}><h4><i class="bi bi-caret-up-fill"></i></h4></button></span>
+        <h4 id="session-label" className='text-xl'>Session Length</h4>
+        <span className='sectionRow text-center text-2xl'><button type="button" className='btn-c' id="session-decrement" disabled={disabled} onClick={sessionDecrement}><h4><i class="bi bi-caret-down-fill"></i></h4></button><h4 id="session-length">{props.sessionMinVal}</h4><button disabled={disabled} type="button" className='btn-c' id="session-increment" onClick={sessionIncrement}><h4><i class="bi bi-caret-up-fill"></i></h4></button></span>
       </div>
     </div>
   )
@@ -81,8 +81,8 @@ const BreakSessionSection = (props) => {
 const Timer = (props) => {
   return (
     <div className='text-center p-2 timerBackground'>
-      <h3 id="timer-label">{props.breakIsOnVar ? 'Break' : 'Session'}</h3>
-      <h1 id="time-left">{`${props.minutes}:${props.seconds}`}</h1>
+      <h3 id="timer-label" className="text-2xl">{props.breakIsOnVar ? 'Break' : 'Session'}</h3>
+      <h1 id="time-left" className="text-7xl">{`${props.minutes}:${props.seconds}`}</h1>
     </div>
   )
 }
@@ -91,6 +91,10 @@ const Timer = (props) => {
  
 const App = () => {
   const [isOn, setIsOn] = useState(false);
+  const [color, setColor] = useState({
+    "outer": "#ba4949",
+    "inner": "#c25d5c"
+  });
   const [breakIsOn, setBreakIsOn] = useState(false);
   const [interval, setIntervalTime] = useState("");
   const [sessionMin, setSessionMin] = useState(25);
@@ -161,13 +165,7 @@ const App = () => {
   useEffect(() => {
     setTimeStrings(addZeroes(time["seconds"], time["minutes"]));
     if(isOn == true) {
-      if(parseInt(time["minutes"]) < 5 ){
-        document.body.style.backgroundColor = 'rgb(213, 67, 67)';
-        document.querySelector('.timerBackground').style.backgroundColor = 'rgb(164, 47, 47)';
-      } else {
-        document.body.style.backgroundColor = 'cadetblue';
-        document.querySelector('.timerBackground').style.backgroundColor = 'rgb(66, 123, 125)';
-      }
+      // Code used to be here
       //check minutes
       if(parseInt(time["seconds"]) == 0 && parseInt(time["minutes"]) == 0) {
         for(let i = 0; i < 20; i++) {
@@ -177,10 +175,18 @@ const App = () => {
         setTimeout(() => {
           if(!breakIsOn) {
             setBreakIsOn(true);
+            setColor({
+              "outer": "#38868a",
+              "inner": "#4e9396"
+            });
             //run breaktime automatically
             runTime(true);
           } else {
             setBreakIsOn(false);
+            setColor({
+              "outer": "#ba4949",
+              "inner": "#c25d5c"
+            });
             //run session automatically
             runTime(false);
           }
@@ -188,6 +194,11 @@ const App = () => {
       }
     } 
   }, [time])
+
+  useEffect(() => {
+    document.body.style.backgroundColor = color.outer;
+    document.querySelector('.App').style.backgroundColor = color.inner;
+  }, [color])
 
   const handleClick = () => {
     if (isOn == false) {
@@ -210,6 +221,10 @@ const App = () => {
     document.getElementById('beep').pause();
     document.getElementById('beep').currentTime = 0;
     setBreakIsOn(false);
+    setColor({
+      "outer": "#ba4949",
+      "inner": "#c25d5c"
+    })
     setBreakMin(5);
     setSessionMin(25);
     setTime({
@@ -224,27 +239,31 @@ const App = () => {
 
 
   return (
-    <div className="d-flex justify-content-center align-items-center" style={{height: '100vh'}}>
-      <div className='App'>
-        <h2 className='text-center'>25 + 5 Clock</h2>
-        <BreakSessionSection breakIsOnVar={breakIsOn} sessionVal={timeStrings} setSessionMinFunc={setSessionMin} setBreakMinFunc={setBreakMin} breakMinVal={breakMin} sessionMinVal={sessionMin} setTimeFunc={setTime} isOnVar={isOn}/>
-        <audio id="beep" src={soundfile}></audio>
-        <Timer breakIsOnVar={breakIsOn} minutes={timeStrings['minutes']} seconds={timeStrings['seconds']}/>
-        <div className='buttons'>
-          <span style={{fontSize: '90px'}}>
-            <button type="button" className="btn-c" id="start_stop" onClick={handleClick}>
-              {
-                isOn ? <i class="bi bi-pause-fill"></i> : <i class="bi bi-play-fill"></i>
-              }
-            </button>
-          </span>
-          <span style={{fontSize: '90px'}}>
-            <button type="button" className="btn-c" id="reset" onClick={reset}> 
-              <i class="bi bi-arrow-counterclockwise"></i>
-            </button>
-          </span>
+    <div className="d-flex flex-col justify-content-center align-items-center" style={{height: '100vh', width: '100%'}}>
+      <div className="m-5">
+        <h2 className='text-center text-7xl'>Pomodoro Timer</h2>
+      </div>
+      <div className='App d-flex justify-content-center align-items-center rounded'>
+        <div>
+          <BreakSessionSection breakIsOnVar={breakIsOn} sessionVal={timeStrings} setSessionMinFunc={setSessionMin} setBreakMinFunc={setBreakMin} breakMinVal={breakMin} sessionMinVal={sessionMin} setTimeFunc={setTime} isOnVar={isOn}/>
+          <audio id="beep" src={soundfile}></audio>
+          <Timer breakIsOnVar={breakIsOn} minutes={timeStrings['minutes']} seconds={timeStrings['seconds']}/>
         </div>
       </div>
+      <div className='buttons m-1 p-2'>
+            <span style={{fontSize: '90px'}}>
+              <button type="button" className="btn-c" id="start_stop" onClick={handleClick}>
+                {
+                  isOn ? <i class="bi bi-pause-fill"></i> : <i class="bi bi-play-fill"></i>
+                }
+              </button>
+            </span>
+            <span style={{fontSize: '90px'}}>
+              <button type="button" className="btn-c" id="reset" onClick={reset}> 
+                <i class="bi bi-arrow-counterclockwise"></i>
+              </button>
+            </span>
+        </div>
     </div>
   );
 }
