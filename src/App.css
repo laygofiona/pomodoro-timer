@@ -85,7 +85,7 @@ html, body{
 
 @media only screen and (min-width: 0px) and (max-width: 430px) {
   .timer-container {
-    max-width: 15rem;
+    max-width: 15rem; 
     max-height: 29.688rem;
     margin: 1.25rem;
   }

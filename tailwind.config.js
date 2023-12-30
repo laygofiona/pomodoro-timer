@@ -8,8 +8,6 @@ module.exports = {
   },
   plugins: [],
   screens: {
-    'xs': '0px',
-    // => @media (min-width: 0px) { ... }
     'sm': '640px',
     // => @media (min-width: 640px) { ... }
 
