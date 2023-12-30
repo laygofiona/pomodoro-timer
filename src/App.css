@@ -7,16 +7,35 @@ html, body{
   color: white;
 }
 
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-container-size {
+  height: 100vh;
+  width: 100%;
+}
+
 .App {
-  width: 500px;
-  height: 260px;
+  width: 31.25rem /* 500px */;
+  height: 16.25rem /* 260px */;
   display: flex;
   flex-flow: column wrap;
 }
 
 .BreakSession {
-  width: 400px;
-  max-height: 200px;
+  width: 25rem /* 400px */;
+  max-height: 12.5rem /* 200px */;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -36,18 +55,18 @@ html, body{
 }
 
 .timerBackground {
-  border-radius: 5px;
+  border-radius: 0.313rem /* 5px */;
 }
 
 .buttons {
-  width: 400px;
-  max-height: 100px;
+  width: 25rem /* 400px */;
+  max-height: 6.25rem /* 100px */;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 0.625rem /* 10px */;
   border: none;
 }
 
@@ -61,5 +80,34 @@ html, body{
 }
 
 #start_stop, #reset {
-  font-size: 90px;
+  font-size: 6rem;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 430px) {
+  .timer-container {
+    max-width: 15rem;
+    max-height: 29.688rem;
+    margin: 1.25rem;
+  }
+
+  #start_stop, #reset {
+    font-size: 5rem;
+  }
+
+  .App {
+    max-width: 12.5rem /* 200px */;
+    height: 16.25rem /* 260px */;
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  .BreakSession {
+    max-width: 10.625rem /* 170px */;
+    max-height: 12.5rem /* 200px */;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  
 }

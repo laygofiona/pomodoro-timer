@@ -82,7 +82,7 @@ const Timer = (props) => {
   return (
     <div className='text-center p-2 timerBackground'>
       <h3 id="timer-label" className="text-2xl">{props.breakIsOnVar ? 'Break' : 'Session'}</h3>
-      <h1 id="time-left" className="text-7xl">{`${props.minutes}:${props.seconds}`}</h1>
+      <h1 id="time-left" className="text-5xl sm:text-7xl">{`${props.minutes}:${props.seconds}`}</h1>
     </div>
   )
 }
@@ -239,9 +239,10 @@ const App = () => {
 
 
   return (
-    <div className="d-flex flex-col justify-content-center align-items-center" style={{height: '100vh', width: '100%'}}>
-      <div className="m-5">
-        <h2 className='text-center text-7xl'>Pomodoro Timer</h2>
+    <div className="outer">
+    <div className="timer-container-size timer-container" >
+      <div className="m-3">
+        <h2 className='text-center text-4xl sm:text-7xl'>Pomodoro Timer</h2>
       </div>
       <div className='App d-flex justify-content-center align-items-center rounded'>
         <div>
@@ -251,19 +252,20 @@ const App = () => {
         </div>
       </div>
       <div className='buttons m-1 p-2'>
-            <span style={{fontSize: '90px'}}>
+            <span>
               <button type="button" className="btn-c" id="start_stop" onClick={handleClick}>
                 {
                   isOn ? <i class="bi bi-pause-fill"></i> : <i class="bi bi-play-fill"></i>
                 }
               </button>
             </span>
-            <span style={{fontSize: '90px'}}>
+            <span>
               <button type="button" className="btn-c" id="reset" onClick={reset}> 
                 <i class="bi bi-arrow-counterclockwise"></i>
               </button>
             </span>
         </div>
+    </div>
     </div>
   );
 }
